@@ -1,10 +1,27 @@
 void main(List<String> args) async {
+  final stopWatch = Stopwatch();
+  stopWatch.start();
+
   print('Мене звати ${await fetchName()}');
 
   final yearsStr = await fetchAge();
   final years = int.tryParse(yearsStr) ?? 0;
 
   print('Мені ${pluralizeYear(years)}');
+
+  stopWatch.stop();
+  print(stopWatch.elapsed);
+  print(stopWatch.elapsed.inSeconds);
+
+  stopWatch.reset();
+  stopWatch.start();
+  final List<Future> futureList = [fetchName(), fetchAge()];
+
+  await Future.wait(futureList);
+
+  stopWatch.stop();
+  print(stopWatch.elapsed);
+  print(stopWatch.elapsed.inSeconds);
 }
 
 Future<String> fetchName() async {
