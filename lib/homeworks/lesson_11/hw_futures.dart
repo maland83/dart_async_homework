@@ -22,6 +22,8 @@ void main(List<String> args) async {
   stopWatch.stop();
   print(stopWatch.elapsed);
   print(stopWatch.elapsed.inSeconds);
+
+  print(await delayedCountdown(qty_seconds: 5));
 }
 
 Future<String> fetchName() async {
@@ -32,6 +34,15 @@ Future<String> fetchName() async {
 Future<String> fetchAge() async {
   await Future.delayed(const Duration(milliseconds: 1500));
   return '25';
+}
+
+Future<String> delayedCountdown({required int qty_seconds}) async {
+  for (var i = qty_seconds; i > 0; i--) {
+    await Future.delayed(Duration(seconds: 1)).then((_) {
+      print('$i...');
+    });
+  }
+  return "Start";
 }
 
 String pluralizeYear(int count) {
